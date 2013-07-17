@@ -1,14 +1,7 @@
 var AlumniGenerator = {
-  
-  requestAlumni: function() {
-    var req = new XMLHttpRequest();
-    req.open("GET", 'https://mainframe.nerdery.com/workman.php?queue=Tech%20Services', false);
-    req.onload = this.showAlumni.bind(this);
-    req.send(null);
-  },
  
   showAlumni: function (e) {        
-    var oldStr = e.target.responseText;
+    var oldStr = e;
     var newStr = oldStr.replace(/\/workdetail.php/g, 'https://mainframe.nerdery.com/workdetail.php/');
     var $alumni = $(newStr).find('tr:contains("Termination")');
     var $div = $('<div>').addClass("alumni-table");
@@ -20,9 +13,12 @@ var AlumniGenerator = {
     });
     $table.appendTo($div);
     $('body').append($div);  
+    chrome.browserAction.setBadgeText({ text:''});
   }
 };
 
 document.addEventListener('DOMContentLoaded', function () {  
-  AlumniGenerator.requestAlumni();
+  AlumniHttp.requestAlumni(function(e, f) {
+      AlumniGenerator.showAlumni(e.responseText);
+  })
 });
