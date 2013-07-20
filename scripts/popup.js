@@ -25,6 +25,4 @@ var AlumniGenerator = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', function () {
-  AlumniGenerator.fetchData();
-});
+AlumniGenerator.fetchData();
