@@ -1,37 +1,42 @@
 var Badge = {
- 
-  updateBadge: function (e, data) {
-    var $td = data.find('td:contains("Termination")');
-    // loca storage crap here
-    var arr = $.makeArray($td);
-    var arrNew = [];
-    arr.forEach(function(entry) {
-      arrNew.push(entry.outerText);
-    }); 
-    
+  updateBadge: function(){
     var ls = JSON.parse(localStorage.getItem('names'));
-    var badgeCount = 0;
+    var rows = Alumni.getAlumniRows();
+    var names = $.map(rows, function(row){
+      return row.name;
+    });
+    var badgeCount = this.getDiffCount(names, ls);
 
-    if(ls){
-        // compare old to new
-        arrNew.forEach(function(entry) {
-          if(ls.indexOf(entry) <= -1){
-            badgeCount++;
-          }
-        }); 
-      }
-      else{        
-        badgeCount = e;
-      }
-      localStorage.setItem('names', JSON.stringify(arrNew));
+    localStorage.setItem('names', JSON.stringify(names));
     chrome.browserAction.setBadgeText({ text: badgeCount > 0 ? badgeCount.toString() : ''});
   },
-  fetchData: function () {
-   AlumniHttp.requestAlumni(function(e, f) {
-      $alumni = $(e.responseText).find('tr:contains("Termination")');
-      Badge.updateBadge($alumni.length.toString(), $alumni);
-    })
-   chrome.alarms.create({delayInMinutes: 30});
+
+  getDiffCount: function(arr1, arr2){
+    var diffs = 0;
+    if(arr2 !== null){
+      arr1.forEach(function(entry){
+        if(arr2.indexOf(entry) <= -1){
+          diffs++;
+        }
+      });
+    }
+    else{
+      diffs = arr1.length;
+    }
+    return diffs;
+  },
+
+  showError: function(){
+    return;
+  },
+
+  fetchData: function(){
+    AlumniHttp.requestAlumni()
+      .done(Alumni.handleAlumni.bind(Alumni))
+      .fail(this.showError)
+      .always(this.updateBadge.bind(this));
+
+    chrome.alarms.create({delayInMinutes: 30});
   }
 };
 

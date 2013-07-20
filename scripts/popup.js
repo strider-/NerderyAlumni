@@ -15,12 +15,16 @@ var AlumniGenerator = {
 
   showError: function(text){
     $('body').append('Error: ' + text);
+  },
+
+  fetchData: function(){
+    AlumniHttp.requestAlumni()
+      .done(Alumni.handleAlumni.bind(Alumni))
+      .fail(this.handleError)
+      .always(this.showAlumni);
   }
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  AlumniHttp.requestAlumni()
-    .done(Alumni.handleAlumni.bind(Alumni))
-    .fail(AlumniGenerator.handleError)
-    .always(AlumniGenerator.showAlumni);
+  AlumniGenerator.fetchData();
 });
