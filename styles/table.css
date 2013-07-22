@@ -93,7 +93,3 @@
 .alumni-table tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
-
-.alumni-table table td:nth-child(1),td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(7){
-	display: none;
-}
