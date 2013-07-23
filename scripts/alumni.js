@@ -14,6 +14,7 @@ var Alumni = {
       var rn = this.getReasonAndName(cells[5]);
 
       return {
+        name: rn.name,
         woLink: cells[1],
         div: cells[2],
         date: cells[3],

@@ -5,7 +5,7 @@
                 <td>Term Date</td><td>Name</td><td>Picture</td>
             </tr>
             {{#rows}}
-            <tr>
+            <tr data-name="{{name}}">
                 <td>{{{date}}}</td><td>{{{nameLink}}}</td><td><a href="{{pic}}" target="_blank"><img src="{{pic}}" height="40"></a></td>
             </tr>
             {{/rows}}
