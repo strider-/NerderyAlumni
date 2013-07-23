@@ -2,11 +2,11 @@
     <table>
         <tbody>
             <tr>
-                <td>Term Date</td><td>Name</td>
+                <td>Term Date</td><td>Name</td><td>Picture</td>
             </tr>
             {{#rows}}
             <tr>
-                <td>{{{date}}}</td><td>{{{name}}}</td>
+                <td>{{{date}}}</td><td>{{{nameLink}}}</td><td><a href="{{pic}}" target="_blank"><img src="{{pic}}" height="40"></a></td>
             </tr>
             {{/rows}}
         </tbody>

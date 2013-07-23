@@ -1,7 +1,7 @@
 var AlumniGenerator = {
   showAlumni: function(){
     var rows = Alumni.getAlumniRows();
-    if(rows.length > 0){
+    if(typeof rows !== 'undefined' && rows.length > 0){
       AlumniHttp.getCompiledMarkup({ rows: rows }, function(markup){
         $('body').empty().append(markup);
         chrome.browserAction.setBadgeText({ text:''});
