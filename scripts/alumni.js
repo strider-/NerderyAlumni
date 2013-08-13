@@ -47,7 +47,7 @@ var Alumni = {
     var reason = '';
     var name = '';
 
-    if(typeof reasonName !== 'undefined' && reasonName.length > 1){
+    if(reasonName !== null && typeof reasonName !== 'undefined' && reasonName.length > 1){
       var spl = reasonName[1].split(':');
       if(spl.length > 1){
         reason = spl[0].trim();
